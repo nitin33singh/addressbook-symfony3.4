@@ -1,0 +1,25 @@
+{% extends "AddressBookBundle::base.html.twig" %}
+
+{% block body %}
+<div class="container main-container">
+    <div class="jumbotron">
+        <h1>Address Book</h1>
+        <p>This project is about developing an address book in which you can add, edit and delete entries. The project should also have an overview of all contacts.</p>
+        <p>In order to manage contacts, user need to <a href="/login">Login</a> or <a href="/register">Register</a></p>
+        <p><a href="https://github.com/nitin33singh/addressbook-symfony3.4" class="btn btn-primary btn-lg" role="button">Github Repository »</a></p>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% for message in app.flashes('warning') %}
+                <div class="alert alert-dismissible alert-warning">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    {{ message|raw }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% if contacts %}
+        {{ include('@AddressBook/Contact/list.html.twig', { 'contacts': contacts }) }}
+    {% endif %}
+</div>
+{% endblock %}

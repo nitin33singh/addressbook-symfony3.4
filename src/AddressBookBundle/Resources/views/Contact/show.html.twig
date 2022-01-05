@@ -1,0 +1,72 @@
+{% extends "AddressBookBundle::base.html.twig" %}
+
+{% block title %}Show contact{% endblock %}
+
+{% block body %}
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Show contact details for <strong>{{ contact.firstname }} {{ contact.lastname }}</strong> </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="firstname" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="firstname" value="{{ contact.firstname }} {{ contact.lastname }}" class="form-control" id="firstname" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="col-sm-2 control-label">Address</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="address" value="{{ contact.address }}" class="form-control" id="address" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="city" class="col-sm-2 control-label">City</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="city" value="{{ contact.zip }} {{ contact.city }}" class="form-control" id="city" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="country" class="col-sm-2 control-label">Country</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="country" value="{{ contact.country }}" class="form-control" id="country" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-2 control-label">Phone</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="phone" value="{{ contact.phonenumber }}" class="form-control" id="phone" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthday" class="col-sm-2 control-label">Birthday</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="birthday" value="{% if contact.birthday %}{{ contact.birthday|date('d M Y') }}{% endif %}" class="form-control" id="birthday" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="email" value="{{ contact.email }}" class="form-control" id="email" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <a href="{{ path('contact_index') }}" class="btn btn-default">Back to the list</a>
+            </div>
+            <div class="col-md-10">
+                <a href="{{ path('contact_edit', { 'id': contact.id }) }}" class="btn btn-primary">Edit</a>
+                {{ form_start(delete_form, {'attr': {'style': 'display: inline-block;'}}) }}
+                <input type="submit" value="Delete" class="btn btn-danger">
+                {{ form_end(delete_form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

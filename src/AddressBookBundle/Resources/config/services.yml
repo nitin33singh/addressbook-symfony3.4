@@ -1,0 +1,30 @@
+services:
+    AddressBookBundle\DataFixtures\ORM\:
+        resource: '../../../../src/AddressBookBundle/DataFixtures/ORM'
+        tags: ['doctrine.fixture.orm']
+
+    addressbook.contact_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AddressBookBundle\Entity\Contact
+
+    AddressBookBundle\Controller\DefaultController:
+        arguments: ['@addressbook.contact_repository']
+        calls:
+            - [setContainer, ['@service_container']]
+
+    AddressBookBundle\Controller\RegisterController:
+        arguments: ['@Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface', '@Doctrine\ORM\EntityManagerInterface']
+        calls:
+            - [registerAction, ['@?']]
+            - [setContainer, ['@service_container']]
+
+    AddressBookBundle\Controller\ContactController:
+        arguments: ['@Doctrine\ORM\EntityManagerInterface', '@addressbook.contact_repository']
+        calls:
+            - [showAction, ['@?']]
+            - [editAction, ['@?', '@?']]
+            - [deleteAction, ['@?', '@?']]
+            - [setContainer, ['@service_container']]
+            - [newAction, ['@?']]

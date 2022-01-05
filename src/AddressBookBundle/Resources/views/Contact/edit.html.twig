@@ -1,0 +1,28 @@
+{% extends "AddressBookBundle::base.html.twig" %}
+
+{% block title %}Edit contact{% endblock %}
+
+{% block body %}
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Edit contact <strong>{{ contact.firstname }} {{ contact.lastname }}</strong> </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_start(edit_form, {'attr': {'class': 'form-horizontal', 'id': 'edit-contact-form', 'role': 'form'}}) }}
+                {{ form_widget(edit_form) }}
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <a href="{{ path('contact_index') }}" class="btn btn-default">Back to the list</a>
+                    </div>
+                    <div class="col-sm-10 btn-back-to-list">
+                        <input type="submit" value="Edit" class="btn btn-success"/>
+                    </div>
+                </div>
+                {{ form_end(edit_form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
